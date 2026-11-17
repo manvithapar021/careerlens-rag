@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareerLens — RAG Job-Description Matcher</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5" style="max-width: 860px;">
+  <h1 class="mb-1">🔎 CareerLens</h1>
+  <p class="lead text-muted">Paste a job description. CareerLens retrieves evidence from
+  Manvi Thapar's resume and project READMEs and gives a grounded fit
+  analysis — with citations, talking points, and an honest skills-gap
+  list. It never claims experience she does not have.</p>
+
+  {% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form action="/analyze" method="post">
+    <div class="mb-3">
+      <label for="jd" class="form-label fw-bold">Job description</label>
+      <textarea class="form-control" id="jd" name="jd" rows="12"
+        placeholder="Paste the full job description here..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Analyse my fit</button>
+    <span class="text-muted ms-2">No API key needed — runs locally by default.</span>
+  </form>
+
+  <hr class="my-4">
+  <h2 class="h5">Try a sample</h2>
+  <div class="row">
+    {% for name, text in samples.items() %}
+    <div class="col-md-6 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h3 class="h6 card-title">{{ name.replace('_', ' ').replace('sample jd ', '') | title }}</h3>
+          <p class="card-text small text-muted">{{ text[:180] }}…</p>
+          <form action="/analyze" method="post">
+            <input type="hidden" name="jd" value="{{ text }}">
+            <button type="submit" class="btn btn-outline-primary btn-sm">Analyse this one</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <hr class="my-4">
+  <h2 class="h5">How it works</h2>
+  <ol>
+    <li><strong>Ingest &amp; chunk</strong> — the resume and project READMEs are split into overlapping chunks.</li>
+    <li><strong>Embed</strong> — chunks are embedded locally (sentence-transformers when available, otherwise a built-in TF-IDF embedder).</li>
+    <li><strong>Retrieve</strong> — the job description is embedded the same way and the top-k chunks are fetched by cosine similarity.</li>
+    <li><strong>Compose</strong> — a grounded analysis is built from the retrieved chunks, with citations. With an LLM key set (<code>CAREERLENS_LLM_PROVIDER</code> + <code>OPENAI_API_KEY</code> / <code>GROQ_API_KEY</code> / <code>GEMINI_API_KEY</code>) a hosted LLM writes the narrative; without one, an extractive composer does the job.</li>
+  </ol>
+  <p class="text-muted small">Honesty rule: a skill in the JD with no supporting evidence is listed as a gap — never claimed.</p>
+</div>
+</body>
+</html>

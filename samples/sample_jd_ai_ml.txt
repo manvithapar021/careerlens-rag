@@ -1,0 +1,15 @@
+AI/ML Engineering Intern
+
+We are hiring an AI/ML Engineering Intern for 6 months, hybrid in
+Bangalore.
+
+Requirements:
+- Python and hands-on experience with LLMs and RAG pipelines
+- Understanding of embeddings, vector databases and prompt engineering
+- Experience with TensorFlow or PyTorch and machine learning
+- Familiarity with Docker and Kubernetes for deployment
+- Frontend skills in React to build demo interfaces
+- Strong Pandas and data analysis skills
+
+You will build GenAI features, evaluate LLM outputs, and ship
+retrieval-augmented generation services to production.

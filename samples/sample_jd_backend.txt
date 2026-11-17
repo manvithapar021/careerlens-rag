@@ -1,0 +1,17 @@
+Backend Python Developer Intern
+
+We are looking for a Backend Python Developer Intern to join our
+engineering team for 3 months, remote.
+
+Requirements:
+- Strong Python programming skills
+- Experience with Flask or Django and REST APIs
+- Working knowledge of SQL and relational databases
+- Familiarity with Git and GitHub
+- Understanding of CRUD operations and database integration
+- Good grasp of data structures and algorithms
+- Experience with Pandas for data handling is a plus
+
+You will build backend services, write REST APIs, work with SQL
+databases, and collaborate with the frontend team using HTML, CSS and
+JavaScript.

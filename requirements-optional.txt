@@ -1,0 +1,4 @@
+# Optional: dense embeddings. Install for better retrieval quality.
+# Without this, CareerLens uses its built-in TF-IDF embedder and works
+# fully offline with no downloads.
+sentence-transformers>=3.0
